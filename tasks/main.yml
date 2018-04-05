@@ -1,0 +1,9 @@
+---
+
+# Main tasks file for xvfb role
+
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::xvfb'
+    - 'role::xvfb::init'
