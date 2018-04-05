@@ -9,13 +9,32 @@ testinfra_hosts = AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
-def test_hosts_file(host):
+def test_package(host):
     """
-    Ensure /etc/hosts file exists
+    Ensure package installed
     """
 
-    f = host.file('/etc/hosts')
+    assert host.package('xvfb').is_installed
 
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
+
+def test_service(host):
+    """
+    Ensure service running
+    """
+
+    xvfb_service = host.service('xvfb')
+
+    assert xvfb_service.is_enabled
+    assert xvfb_service.is_running
+
+
+def test_process(host):
+    """
+    Ensure process running
+    """
+
+    xvfb_process = host.process.get(user='root', comm='Xvfb')
+
+    assert ':99 -screen 0 1x1x24 -ac +extension GLX +render -noreset' in \
+        xvfb_process.args
+    assert len(host.process.filter(comm='Xvfb')) == 1

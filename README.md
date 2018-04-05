@@ -18,7 +18,6 @@ See molecule documentation to use other backend.
 
 Currently, tests are done on:
 - Debian Jessie
-- Ubuntu Trusty
 - Ubuntu Xenial
 
 and use:
@@ -40,6 +39,19 @@ $ tox
 ### Default role variables
 
 ``` yaml
+# Installation
+xvfb_packages: "{{ _xvfb_packages }}"
+xvfb_repository_cache_valid_time: 3600
+xvfb_repository_update_cache: True
+xvfb_binary_path: "{{ _xvfb_binary_path }}"
+
+# Service
+xvfb_service_name: 'xvfb'
+xvfb_service_enabled: True
+xvfb_service_state: 'started'
+
+# Configuration
+xvfb_options: ':99 -screen 0 1x1x24 -ac +extension GLX +render -noreset'
 ```
 
 ## Dependencies
