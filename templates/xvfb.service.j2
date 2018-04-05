@@ -1,0 +1,9 @@
+[Unit]
+Description=Virtual Frame Buffer X Server
+After=network.target
+
+[Service]
+ExecStart={{ xvfb_binary_path }} {{ xvfb_options }}
+
+[Install]
+WantedBy=multi-user.target

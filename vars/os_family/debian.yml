@@ -1,0 +1,8 @@
+---
+
+# Debian OS family variables
+
+_xvfb_packages:
+  - name: 'xvfb'
+
+_xvfb_binary_path: '/usr/bin/Xvfb'

@@ -1,0 +1,40 @@
+---
+
+# Main tasks file for xvfb role
+
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::xvfb'
+    - 'role::xvfb::init'
+    - 'role::xvfb::install'
+
+
+- name: 'INSTALL | Manage OS family installation tasks'
+  become: True
+  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
+  tags:
+    - 'role::xvfb'
+    - 'role::xvfb::install'
+
+
+- name: 'INSTALL | Manage service configuration file'
+  template:
+    src: "{{ role_path }}/templates/xvfb.service.j2"
+    dest: "/etc/systemd/system/{{ xvfb_service_name }}.service"
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  tags:
+    - 'role::xvfb'
+    - 'role::xvfb::install'
+
+
+- name: 'INSTALL | Manage service'
+  service:
+    name: "{{ xvfb_service_name }}"
+    enabled: "{{ xvfb_service_enabled }}"
+    state: "{{ xvfb_service_state }}"
+  tags:
+    - 'role::xvfb'
+    - 'role::xvfb::install'
