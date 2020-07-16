@@ -1,0 +1,8 @@
+---
+
+# RedHat OS family variables
+
+_xvfb_packages:
+  - name: 'xorg-x11-server-Xvfb'
+
+_xvfb_binary_path: '/usr/bin/Xvfb'

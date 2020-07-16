@@ -14,7 +14,10 @@ def test_package(host):
     Ensure package installed
     """
 
-    assert host.package('xvfb').is_installed
+    if host.system_info.distribution in ('debian', 'ubuntu'):
+        assert host.package('xvfb').is_installed
+    else:
+        assert host.package('xorg-x11-server-Xvfb').is_installed
 
 
 def test_service(host):
