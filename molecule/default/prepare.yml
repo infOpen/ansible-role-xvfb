@@ -1,5 +1,11 @@
 ---
-- name: Prepare
-  hosts: all
-  gather_facts: False
-  tasks: []
+
+# Role tests
+
+- name: 'Prepare | Main tasks'
+  hosts: 'debian'
+  tasks:
+    - name: 'Ensure procps is installed (used by tests)'
+      package:
+        name: 'procps'
+        state: 'present'

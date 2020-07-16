@@ -1,11 +1,9 @@
 ---
 
-- name: 'INSTALL | APT | Install xvfb packages'
+- name: 'INSTALL | YUM | Install xvfb packages'
   become: True
-  apt:
+  yum:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
-    update_cache: True
-    cache_valid_time: "{{ xvfb_repository_cache_valid_time }}"
   notify: 'HANDLER | Restart xvfb'
   with_items: "{{ xvfb_packages }}"
